@@ -23,6 +23,9 @@ const BenToNavigator = createStackNavigator(
         headerShown: false,
       },
     },
+    Home: {
+      screen: Home,
+    },
   }
   // { mode: 'modal' }
 );

@@ -27,41 +27,37 @@ const Login = (props) => {
 
   let passInput = '';
 
-  // const submitSignIn = async () => {
-  //   setLoading(true);
-  //   if (!Field.checkFields([user.email, user.password])) {
-  //     Alert.alert('Empty Field', 'Please, fill the fields');
-  //   } else {
-  //     const data = await Http.send('POST', '/api/users/signin', user);
+  const submitSignIn = async () => {
+    // setLoading(true);
+    if (!Field.checkFields([user.email, user.password])) {
+      Alert.alert('Empty Field', 'Please, fill the fields');
+    } else {
+      const data = await Http.send('POST', '/api/users/signin', user);
 
-  //     if (!data) {
-  //       Alert.alert('Fatal Error', 'No data from server...');
-  //     } else {
-  //       switch (data.typeResponse) {
-  //         case 'Success':
-  //           await AsyncStorage.setItem('user', JSON.stringify(data.body[0]));
-  //           navigation.navigate('Home', data.body[0]);
-  //           break;
+      if (!data) {
+        Alert.alert('Fatal Error', 'No data from server...');
+      } else {
+        switch (data.typeResponse) {
+          case 'Success':
+            await AsyncStorage.setItem('user', JSON.stringify(data.body[0]));
+            navigation.navigate('Home', data.body[0]);
+            break;
 
-  //         case 'Fail':
-  //           data.body.errors.forEach((element) => {
-  //             ToastAndroid.showWithGravity(
-  //               element.text,
-  //               ToastAndroid.SHORT,
-  //               ToastAndroid.TOP
-  //             );
-  //           });
-  //           break;
+          case 'Fail':
+            data.body.errors.forEach((element) => {
+              console.log(element.text);
+            });
+            break;
 
-  //         default:
-  //           Alert.alert(data.typeResponse, data.message);
-  //           break;
-  //       }
-  //     }
-  //   }
+          default:
+            Alert.alert(data.typeResponse, data.message);
+            break;
+        }
+      }
+    }
 
-  //   setLoading(false);
-  // };
+    // setLoading(false);
+  };
 
   return (
     <TouchableWithoutFeedback

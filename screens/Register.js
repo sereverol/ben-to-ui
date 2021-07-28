@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Ionicons } from '@expo/vector-icons';
 
+import Http from '../components/Http';
 import Field from '../components/Fields';
 import MainButton from '../components/MainButton';
 import Colors from '../constants/Colors';
@@ -36,59 +37,54 @@ const Register = (props) => {
   let emailInput = '';
 
   const submitSignUp = async () => {
-    setLoading(true);
+    // setLoading(true);
     if (
       !Field.checkFields([
+        user.name,
+        user.direction,
         user.email,
         user.password,
-        user.name,
         user.confirmPassword,
       ])
     ) {
-      Alert.alert('Empty Fields', 'Please, fill the fields');
+      Alert.alert('Empty Field', 'Please, fill the fields');
+    } else {
+      const data = await Http.send('POST', '/api/users/signup', user);
+
+      if (!data) {
+        Alert.alert('Fatal Error', 'No data from server...');
+      } else {
+        switch (data.typeResponse) {
+          case 'Success':
+            await AsyncStorage.setItem(
+              'user',
+              JSON.stringify({
+                email: user.email,
+                name: user.name,
+                id: data.body.id,
+              })
+            );
+            // navigation.navigate('Home', {
+            //   email: user.email,
+            //   name: user.name,
+            //   id: data.body.id,
+            // });
+            break;
+
+          case 'Fail':
+            console.log('error');
+            break;
+
+          default:
+            Alert.alert(data.typeResponse, data.message);
+            break;
+        }
+      }
     }
-    // } else {
-    //   const data = await Http.send('POST', '/api/users/signup', user);
 
-    //   if (!data) {
-    //     Alert.alert('Fatal Error', 'No data from server...');
-    //   } else {
-    //     switch (data.typeResponse) {
-    //       case 'Success':
-    //         await AsyncStorage.setItem(
-    //           'user',
-    //           JSON.stringify({
-    //             email: user.email,
-    //             name: user.name,
-    //             id: data.body.id,
-    //           })
-    //         );
-    //         navigation.navigate('Home', {
-    //           email: user.email,
-    //           name: user.name,
-    //           id: data.body.id,
-    //         });
-    //         break;
-
-    //       case 'Fail':
-    //         data.body.errors.forEach((element) => {
-    //           ToastAndroid.showWithGravity(
-    //             element.text,
-    //             ToastAndroid.SHORT,
-    //             ToastAndroid.TOP
-    //           );
-    //         });
-    //         break;
-
-    //       default:
-    //         Alert.alert(data.typeResponse, data.message);
-    //         break;
-    //     }
-    //   }
-    // }
-
-    setLoading(false);
+    // setLoading(false);
   };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
