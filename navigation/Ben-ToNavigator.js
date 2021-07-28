@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Login from '../screens/Login';
 import Register from '../screens/Register';
+import Home from '../screens/Home';
 
 import Colors from '../constants/Colors';
 
