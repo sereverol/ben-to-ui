@@ -18,6 +18,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Ionicons } from '@expo/vector-icons';
 
+import Http from '../components/Http';
+import Field from '../components/Fields';
 import MainButton from '../components/MainButton';
 import Colors from '../constants/Colors';
 
@@ -28,7 +30,7 @@ const Login = (props) => {
   let passInput = '';
 
   const submitSignIn = async () => {
-    // setLoading(true);
+    setLoading(true);
     if (!Field.checkFields([user.email, user.password])) {
       Alert.alert('Empty Field', 'Please, fill the fields');
     } else {
@@ -40,7 +42,13 @@ const Login = (props) => {
         switch (data.typeResponse) {
           case 'Success':
             await AsyncStorage.setItem('user', JSON.stringify(data.body[0]));
-            navigation.navigate('Home', data.body[0]);
+            console.log(data.body[0].admin);
+            if (data.body[0].admin === true) {
+              props.navigation.replace('AdminHome');
+            } else if (data.body[0].admin === null) {
+              props.navigation.replace('Home');
+            }
+            // navigation.navigate('Home', data.body[0]);
             break;
 
           case 'Fail':
@@ -56,9 +64,8 @@ const Login = (props) => {
       }
     }
 
-    // setLoading(false);
+    setLoading(false);
   };
-
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -107,7 +114,7 @@ const Login = (props) => {
             />
           </View>
 
-          <MainButton onPress={() => console.log(user)}>Sign In</MainButton>
+          <MainButton onPress={() => submitSignIn()}>Sign In</MainButton>
           {/* <TouchableOpacity onPress={submitSignIn} style={signInStyles.signIn}>
           {loading ? (
             <ActivityIndicator size="small" color="#00ff00" />

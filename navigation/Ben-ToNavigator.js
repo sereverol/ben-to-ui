@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
 import Home from '../screens/Home';
+import AdminHome from '../screens/AdminHome';
 
 import Colors from '../constants/Colors';
 
@@ -26,6 +27,9 @@ const BenToNavigator = createStackNavigator(
     },
     Home: {
       screen: Home,
+    },
+    AdminHome: {
+      screen: AdminHome,
     },
   }
   // { mode: 'modal' }
