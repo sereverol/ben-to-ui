@@ -43,6 +43,16 @@ const AdminHome = (props) => {
   //   console.log(user);
   // };
 
+  const goOut = async () => {
+    try {
+      await AsyncStorage.removeItem('user');
+      props.navigation.replace('Login');
+      return true;
+    } catch (exception) {
+      return false;
+    }
+  };
+
   const goToAddEstablishment = () => {
     props.navigation.navigate('AddEstablishment');
   };
@@ -66,14 +76,21 @@ const AdminHome = (props) => {
       <Card
         style={{
           width: 340,
-          marginTop: 30,
+          marginTop: 190,
           justifyContent: 'center',
           alignItems: 'center',
+          backgroundColor: 'red',
         }}
-        onPress={() => console.log(oli)}
+        onPress={() => goOut()}
       >
-        <Text style={{ justifyContent: 'center', alignItems: 'center' }}>
-          Click Here to See All Establishments
+        <Text
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: 30,
+          }}
+        >
+          Go To Login
         </Text>
       </Card>
     </View>

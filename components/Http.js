@@ -1,5 +1,5 @@
-const urlx = 'https://pochita.herokuapp.com';
-const url = 'http://10.1.1.74:3000';
+const url = 'https://ben-to.herokuapp.com';
+const urlx = 'http://10.1.1.74:3000';
 const headers = { 'Content-Type': 'application/json' };
 
 const send = async (method, endpoint, body) => {

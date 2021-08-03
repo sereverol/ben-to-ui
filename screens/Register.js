@@ -64,6 +64,7 @@ const Register = (props) => {
                 id: data.body.id,
               })
             );
+            props.navigation.replace('Login');
             // navigation.navigate('Home', {
             //   email: user.email,
             //   name: user.name,

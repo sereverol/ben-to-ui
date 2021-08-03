@@ -52,6 +52,7 @@ const AddProducts = (props) => {
           case 'Success':
             // await AsyncStorage.setItem('user', JSON.stringify(data.body[0]));
             Alert.alert('Product Created', 'Yay!');
+
             if (data) {
               //   props.navigation.navigate('AddProducts', {
               //     es_id: establishment_id,
@@ -59,9 +60,9 @@ const AddProducts = (props) => {
               // });
               console.log(data);
             } else if (data.body[0].admin === null) {
-              props.navigation.replace('Home');
+              // props.navigation.replace('Home');
             }
-            navigation.navigate('Home', data.body[0]);
+            // navigation.navigate('Home', data.body[0]);
             break;
 
           case 'Fail':
@@ -129,6 +130,7 @@ const AddProducts = (props) => {
 
             <View style={styles.section}>
               <TextInput
+                value={product.name}
                 style={styles.inputText}
                 onChangeText={(name) => setProduct({ ...product, name: name })}
                 placeholder="Name"
@@ -136,6 +138,7 @@ const AddProducts = (props) => {
             </View>
             <View style={styles.section}>
               <TextInput
+                value={product.description}
                 style={styles.inputText}
                 onChangeText={(description) =>
                   setProduct({ ...product, description: description })
@@ -145,6 +148,7 @@ const AddProducts = (props) => {
             </View>
             <View style={styles.section}>
               <TextInput
+                value={product.price}
                 style={styles.inputText}
                 keyboardType="numeric"
                 onChangeText={(price) =>
@@ -155,6 +159,7 @@ const AddProducts = (props) => {
             </View>
             <View style={styles.section}>
               <TextInput
+                value={product.imageurl}
                 style={styles.inputText}
                 onChangeText={(imageurl) =>
                   setProduct({ ...product, imageurl: imageurl })

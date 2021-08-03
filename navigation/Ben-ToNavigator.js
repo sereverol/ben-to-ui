@@ -45,6 +45,9 @@ const BenToNavigator = createStackNavigator(
     Products: {
       screen: Products,
     },
+    Home: {
+      screen: Home,
+    },
   },
   {
     initialRouteName: 'Login',
