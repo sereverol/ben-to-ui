@@ -12,8 +12,8 @@ import {
 
 import FormCard from '../components/FormCard';
 
-import Http from '../components/Http';
-import Field from '../components/Fields';
+import Http from '../service/Http';
+import Field from '../util/Field';
 import MainButton from '../components/MainButton';
 
 const AddEstablishment = (props) => {

@@ -4,7 +4,7 @@ import { View, Text, FlatList, Button } from 'react-native';
 import MainButton from '../components/MainButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import EstablishmentGridTile from '../components/EstablishmentGridTile';
-import Http from '../components/Http';
+import Http from '../service/Http';
 
 const Home = (props) => {
   const [loading, setLoading] = useState(false);

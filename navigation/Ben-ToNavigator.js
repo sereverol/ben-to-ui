@@ -13,7 +13,7 @@ import AddProducts from '../screens/AddProducts';
 import Establishments from '../screens/Establishments';
 import AddEstablishment from '../screens/AddEstablishment';
 import Products from '../screens/Products';
-
+import MapScreen from '../screens/Mapas';
 import Colors from '../constants/Colors';
 
 const BenToNavigator = createStackNavigator(
@@ -47,6 +47,12 @@ const BenToNavigator = createStackNavigator(
     },
     Home: {
       screen: Home,
+    },
+    Mapas:{
+      screen:MapScreen,
+      navigationOptions:{
+        headerShown:false,
+      },
     },
   },
   {

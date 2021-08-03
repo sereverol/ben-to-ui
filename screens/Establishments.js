@@ -10,7 +10,7 @@ import {
 import MainButton from '../components/MainButton';
 import FormCard from '../components/FormCard';
 
-import Http from '../components/Http';
+import Http from '../service/Http';
 import ProductGridTile from '../components/ProductGridTile';
 
 const Establishments = (props) => {

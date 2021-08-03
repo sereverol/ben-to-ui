@@ -8,10 +8,10 @@ import {
   Alert,
 } from 'react-native';
 
-import Http from '../components/Http';
+import Http from '../service/Http';
 import Card from '../components/Card';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Field from '../components/Fields';
+import Field from '../util/Field';
 import MainButton from '../components/MainButton';
 
 const AdminHome = (props) => {
