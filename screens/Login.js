@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -42,9 +42,8 @@ const Login = (props) => {
         switch (data.typeResponse) {
           case 'Success':
             await AsyncStorage.setItem('user', JSON.stringify(data.body[0]));
-            console.log(data.body[0].admin);
             if (data.body[0].admin === true) {
-              props.navigation.replace('AdminHome');
+              props.navigation.replace('Admin');
             } else if (data.body[0].admin === null) {
               props.navigation.replace('Home');
             }

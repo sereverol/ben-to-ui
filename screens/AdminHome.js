@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   View,
   Text,
@@ -8,130 +8,82 @@ import {
   Alert,
 } from 'react-native';
 
-import { Icon, Card } from 'react-native-elements';
-
 import Http from '../components/Http';
+import Card from '../components/Card';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Field from '../components/Fields';
 import MainButton from '../components/MainButton';
 
-const AdminHome = ({ navigation, route }) => {
-  const [vissiblePassFlag] = useState(false);
+const AdminHome = (props) => {
+  const [data, setData] = useState([]);
 
-  const [establishment, setEstablishment] = useState({
-    name: '',
-    direction: '',
-  });
+  useEffect(() => {
+    const asyncFunctionData = async () => {
+      try {
+        const storageData = await AsyncStorage.getItem('user');
+        setData(JSON.parse(storageData));
+      } catch (e) {}
+    };
+    asyncFunctionData();
+  }, [setData]);
 
-  const gotoAdmin = () => {
-    console.log('go to Admin');
-  };
-  const deleteAdmin = () => {
-    console.log('delete admin');
-  };
+  // const [user, setUser] = useState();
 
-  const createEstablishment = async () => {
-    if (!Field.checkFields([establishment.name, establishment.direction])) {
-      Alert.alert('Empty Field', 'Please, fill the fields');
-    } else {
-      const data = await Http.send('POST', '/api/establishment', establishment);
+  // useEffect(() => {
+  //   fetchData();
+  //   return () => {
+  //     console.log('done');
+  //   };
+  // }, [user]);
 
-      if (!data) {
-        Alert.alert('Fatal Error', 'No data from server...');
-      } else {
-        switch (data.typeResponse) {
-          case 'Success':
-            // await AsyncStorage.setItem('user', JSON.stringify(data.body[0]));
+  // const fetchData = async () => {
+  //   const data = await AsyncStorage.getItem('user');
+  //   const value = await JSON.parse(data);
+  //   await setUser(value);
+  //   console.log(user);
+  // };
 
-            // if (data.body[0].admin === true) {
-            //   props.navigation.replace('AdminHome');
-            // } else if (data.body[0].admin === null) {
-            //   props.navigation.replace('Home');
-            // }
-            // navigation.navigate('Home', data.body[0]);
-            break;
-
-          case 'Fail':
-            data.body.errors.forEach((element) => {
-              console.log(element.text);
-            });
-            break;
-
-          default:
-            Alert.alert(data.typeResponse, data.message);
-            break;
-        }
-      }
-    }
-
-    // setLoading(false);
+  const goToAddEstablishment = () => {
+    props.navigation.navigate('AddEstablishment');
   };
 
-  const Header = ({ title, action, action1 }) => (
-    <View style={styles.Header}>
-      <Icon
-        name="close-outline"
-        color="gray"
-        type="ionicon"
-        size={30}
-        checked={vissiblePassFlag}
-        onPress={action}
-      />
-
-      <Text style={{ fontSize: 30 }}>{title}</Text>
-      <MainButton
-        style={styles.saveButton}
-        title="Save"
-        type="outline"
-        size={30}
-        checked={vissiblePassFlag}
-        onPress={action1}
-      />
-    </View>
-  );
   return (
-    <ScrollView>
-      <View>
-        <Card>
-          <Text>Information Product</Text>
-          <Card.Divider />
-          <TextInput style={styles.inputText} placeholder="Name Product" />
-
-          <TextInput style={styles.inputText} placeholder="Price Product" />
-          <MainButton>Save Product</MainButton>
-        </Card>
-      </View>
-      <View>
-        <Card>
-          <Text>Information Estableshiment</Text>
-          <Card.Divider />
-          <TextInput
-            style={styles.inputText}
-            onChangeText={(name) =>
-              setEstablishment({ ...establishment, name: name })
-            }
-            placeholder="Name Estableshiment"
-          />
-
-          <TextInput
-            style={styles.inputText}
-            onChangeText={(direction) =>
-              setEstablishment({ ...establishment, direction: direction })
-            }
-            placeholder="Direction Estableshiment"
-          />
-          <MainButton onPress={() => createEstablishment()}>
-            Save Estableshiment
-          </MainButton>
-        </Card>
-      </View>
-    </ScrollView>
+    <View style={styles.mainContainer}>
+      <Text style={{ textAlign: 'left', padding: 10, fontSize: 20 }}>
+        Welcome {data.name} !
+      </Text>
+      <Card
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 30,
+          width: 340,
+        }}
+        onPress={() => goToAddEstablishment()}
+      >
+        <Text>Click here to add establishments and products</Text>
+      </Card>
+      <Card
+        style={{
+          width: 340,
+          marginTop: 30,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        onPress={() => console.log(oli)}
+      >
+        <Text style={{ justifyContent: 'center', alignItems: 'center' }}>
+          Click Here to See All Establishments
+        </Text>
+      </Card>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  MainContainer: {
+  mainContainer: {
     flex: 1,
-    margin: 10,
+    padding: 10,
   },
   Header: {
     marginTop: 24,

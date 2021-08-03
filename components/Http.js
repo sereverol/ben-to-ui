@@ -1,5 +1,5 @@
 const urlx = 'https://pochita.herokuapp.com';
-const url = 'http://192.168.1.225:3000';
+const url = 'http://10.1.1.74:3000';
 const headers = { 'Content-Type': 'application/json' };
 
 const send = async (method, endpoint, body) => {
