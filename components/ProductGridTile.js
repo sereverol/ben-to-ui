@@ -15,7 +15,6 @@ const ProductGridTile = (props) => {
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            width: 125,
           }}
         >
           <Text style={styles.title}>{props.title}</Text>
@@ -30,6 +29,7 @@ const ProductGridTile = (props) => {
 const styles = StyleSheet.create({
   gridItem: {
     flex: 1,
+    padding: 10,
     margin: 15,
     height: 150,
   },
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     elevation: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 15,
+    padding: 10,
   },
   title: {
     fontSize: 15,

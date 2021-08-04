@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Ionicons } from '@expo/vector-icons';
 
-import Http from '../service/Http';
+import Http from '../services/Http';
 import Field from '../util/Field';
 import MainButton from '../components/MainButton';
 import Colors from '../constants/Colors';

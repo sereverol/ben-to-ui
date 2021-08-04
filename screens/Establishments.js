@@ -10,8 +10,10 @@ import {
 import MainButton from '../components/MainButton';
 import FormCard from '../components/FormCard';
 
-import Http from '../service/Http';
+import Http from '../services/Http';
 import ProductGridTile from '../components/ProductGridTile';
+import HeaderButton from '../components/HeaderButton';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 const Establishments = (props) => {
   const name = props.navigation.getParam('establishmentName');
@@ -87,48 +89,57 @@ const Establishments = (props) => {
 
   return (
     <View style={styles.container}>
+      <View
+        style={{ justifyContent: 'center', alignItems: 'center', padding: 10 }}
+      >
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: imageurl,
+            }}
+            resizeMode="cover"
+          />
+        </View>
+      </View>
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <FormCard
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: 380,
-            height: 700,
-          }}
-        >
-          <View style={styles.imageContainer}>
-            <Image
-              style={styles.image}
-              source={{
-                uri: imageurl,
-              }}
-              resizeMode="cover"
-            />
-          </View>
+        <FormCard style={{ width: 250, height: 100 }}>
           <View style={{ marginTop: 10 }}>
-            <Text>{description}</Text>
-            <Text>{direction}</Text>
-            <Text>{budget}</Text>
-          </View>
-
-          <View style={{ width: 380 }}>
+            <Text
+              style={{ textAlign: 'center', fontSize: 15, fontWeight: '600' }}
+            >
+              {description}
+            </Text>
             <Text
               style={{
-                marginTop: 5,
-                fontSize: 20,
-                textAlign: 'left',
-                paddingLeft: 5,
+                textAlign: 'center',
+                fontSize: 15,
+                fontWeight: '600',
+                padding: 5,
               }}
             >
-              Products:
+              Located in: {direction}
             </Text>
-            <FlatList
-              data={data[0]}
-              keyExtractor={(item) => item.id}
-              renderItem={renderGridItem}
-            />
           </View>
         </FormCard>
+      </View>
+      <View style={{ width: 380 }}>
+        <Text
+          style={{
+            fontSize: 20,
+            textAlign: 'left',
+            padding: 20,
+          }}
+        >
+          Products Available:
+        </Text>
+
+        <FlatList
+          data={data[0]}
+          keyExtractor={(item) => item.id}
+          renderItem={renderGridItem}
+          numColumns={2}
+        />
       </View>
     </View>
   );
@@ -139,6 +150,17 @@ Establishments.navigationOptions = (navigationData) => {
 
   return {
     headerTitle: headerName,
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="cart"
+          iconName="cart"
+          onPress={() => {
+            navigationData.navigation.navigate('Cart');
+          }}
+        />
+      </HeaderButtons>
+    ),
   };
 };
 
@@ -152,15 +174,15 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   imageContainer: {
-    width: Dimensions.get('window').width * 0.5,
-    height: Dimensions.get('window').width * 0.5,
+    width: Dimensions.get('window').width * 0.3,
+    height: Dimensions.get('window').width * 0.3,
 
-    borderWidth: 1,
-    borderColor: 'gray',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     overflow: 'hidden',
   },
 });
+
+//<Ionicons name="cart" size={24} color="black" />
 
 export default Establishments;

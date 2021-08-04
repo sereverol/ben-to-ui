@@ -8,7 +8,7 @@ import {
   Alert,
 } from 'react-native';
 
-import Http from '../service/Http';
+import Http from '../services/Http';
 import Card from '../components/Card';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Field from '../util/Field';

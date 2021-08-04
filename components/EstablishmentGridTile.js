@@ -13,20 +13,14 @@ const EstablishmentGridTile = (props) => {
       <View style={{ ...styles.container, ...{ backgroundColor: 'white' } }}>
         <View
           style={{
-            justifyContent: 'center',
-            alignItems: 'flex-start',
-            width: 125,
-            borderRadius: 10,
-            borderColor: 'black',
-            borderWidth: 1,
-            shadowColor: 'black',
-            shadowOpacity: 0,
-            shadowOffset: { width: 0, height: 2 },
-            shadowRadius: 10,
+            marginTop: 15,
+
+            justifyContent: 'flex-start',
+            alignItems: 'stretch',
           }}
         >
           <Text style={styles.title}>{props.title}</Text>
-          <Text style={styles.title}>{props.price}</Text>
+          <Text style={styles.title}>Price Range: {props.price}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -47,8 +41,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 10,
     elevation: 3,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
     padding: 15,
   },
   title: {

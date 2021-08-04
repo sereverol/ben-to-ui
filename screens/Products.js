@@ -10,8 +10,10 @@ import {
 import MainButton from '../components/MainButton';
 import FormCard from '../components/FormCard';
 
-import Http from '../service/Http';
+import Http from '../services/Http';
 import ProductGridTile from '../components/ProductGridTile';
+import HeaderButton from '../components/HeaderButton';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 const Products = (props) => {
   const name = props.navigation.getParam('productName');
@@ -29,41 +31,22 @@ const Products = (props) => {
   return (
     <View style={styles.container}>
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <FormCard
+        <View
           style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: 380,
-            height: 700,
+            marginVertical: '70%',
           }}
         >
-          <View style={styles.imageContainer}>
-            <Image
-              style={styles.image}
-              source={{
-                uri: imageurl,
-              }}
-              resizeMode="cover"
-            />
-          </View>
-          <View style={{ marginTop: 10 }}>
-            <Text>{description}</Text>
-            <Text>{price}</Text>
-          </View>
-
-          <View style={{ width: 380 }}>
-            <Text
-              style={{
-                marginTop: 5,
-                fontSize: 20,
-                textAlign: 'left',
-                paddingLeft: 5,
-              }}
-            >
-              Products:
+          <FormCard style={{ height: 170 }}>
+            <Text style={{ fontSize: 20, padding: 10 }}>
+              Add a {name} to your cart!{' '}
             </Text>
-          </View>
-        </FormCard>
+            <Text style={{ textAlign: 'center' }}> {description}</Text>
+
+            <View style={{ marginTop: 5 }}>
+              <MainButton>Add ${price}</MainButton>
+            </View>
+          </FormCard>
+        </View>
       </View>
     </View>
   );
@@ -74,13 +57,24 @@ Products.navigationOptions = (navigationData) => {
 
   return {
     headerTitle: headerName,
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="cart"
+          iconName="cart"
+          onPress={() => {
+            navigationData.navigation.navigate('Cart');
+          }}
+        />
+      </HeaderButtons>
+    ),
   };
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 20,
   },
   image: {
     width: '100%',

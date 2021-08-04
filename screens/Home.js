@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Button } from 'react-native';
 
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import MainButton from '../components/MainButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import HeaderButton from '../components/HeaderButton';
 import EstablishmentGridTile from '../components/EstablishmentGridTile';
-import Http from '../service/Http';
+import Http from '../services/Http';
 
 const Home = (props) => {
   const [loading, setLoading] = useState(false);
@@ -12,16 +14,6 @@ const Home = (props) => {
   const [lotData, setLotData] = useState();
 
   let res = [];
-
-  const goOut = async () => {
-    try {
-      await AsyncStorage.removeItem('user');
-      props.navigation.replace('Login');
-      return true;
-    } catch (exception) {
-      return false;
-    }
-  };
 
   const getList = async () => {
     // setLoading(true);
@@ -83,23 +75,37 @@ const Home = (props) => {
 
   return (
     <View style={{ padding: 10 }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <MainButton onPress={() => goOut()}>Go Out</MainButton>
+      <View>
+        <Text style={{ fontSize: 20, textAlign: 'center' }}>
+          Establishments Available!
+        </Text>
       </View>
-
       <FlatList
         data={data[0]}
         keyExtractor={(item) => JSON.stringify(item.id)}
         renderItem={renderGridItem}
+        numColumns={2}
       />
     </View>
   );
+};
+
+Home.navigationOptions = (navData) => {
+  return {
+    headerTitle: 'Home',
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="exit"
+          iconName="exit"
+          onPress={() => {
+            navData.navigation.replace('Login');
+          }}
+        />
+      </HeaderButtons>
+    ),
+    // headerShown: false,
+  };
 };
 
 export default Home;
