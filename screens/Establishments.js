@@ -11,6 +11,7 @@ import MainButton from '../components/MainButton';
 import FormCard from '../components/FormCard';
 
 import Http from '../services/Http';
+import Map from '../components/Mapas';
 import ProductGridTile from '../components/ProductGridTile';
 import HeaderButton from '../components/HeaderButton';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -103,24 +104,17 @@ const Establishments = (props) => {
         </View>
       </View>
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <FormCard style={{ width: 250, height: 100 }}>
+        <FormCard style={{ width: 250, height: 80 }}>
           <View style={{ marginTop: 10 }}>
             <Text
               style={{ textAlign: 'center', fontSize: 15, fontWeight: '600' }}
             >
               {description}
             </Text>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 15,
-                fontWeight: '600',
-                padding: 5,
-              }}
-            >
-              Located in: {direction}
-            </Text>
           </View>
+        </FormCard>
+        <FormCard style={{ marginTop: 10 }}>
+          <Map></Map>
         </FormCard>
       </View>
       <View style={{ width: 380 }}>

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import MainButton from '../components/MainButton';
 import FormCard from '../components/FormCard';
 
-const Cart = () => {
+const Cart = (props) => {
   return (
     <View style={{ flex: 1, padding: 20 }}>
       <View style={{ alignItems: 'center' }}>
@@ -28,7 +28,9 @@ const Cart = () => {
 
           <View>
             <View style={{ marginTop: 330 }}>
-              <MainButton>Pagar</MainButton>
+              <MainButton onPress={() => props.navigation.navigate('Payment')}>
+                Pagar
+              </MainButton>
             </View>
           </View>
         </FormCard>

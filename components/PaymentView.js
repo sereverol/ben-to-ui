@@ -1,21 +1,18 @@
-import React, { useState, useEffect} from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
-import { WebView } from 'react-native-webview'
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { WebView } from 'react-native-webview';
 
-const PUBLISHABLE_KEY = 'pk_test_51JJsGnAcPpPvEDJIpDiXcoKfOM7Ma3GnTYRjTzDr7yytk7jYsZbSKvWoAJSb5sesaY0SgjV7hxyM1LcnLMwVWY0I00NZ92toF6'
+const PUBLISHABLE_KEY =
+  'pk_test_51JJsGnAcPpPvEDJIpDiXcoKfOM7Ma3GnTYRjTzDr7yytk7jYsZbSKvWoAJSb5sesaY0SgjV7hxyM1LcnLMwVWY0I00NZ92toF6';
 
+const PaymentView = (props) => {
+  const { amount, product } = props;
 
-const PaymentView = (props) => { 
+  const onCheckStatus = (response) => {
+    props.onCheckStatus(response);
+  };
 
-    const { amount, product} = props
-
-
-    const onCheckStatus = (response) => {
-        props.onCheckStatus(response)
-    }
-
-
-    const htmlContent = `
+  const htmlContent = `
     
                 <!DOCTYPE html>
             <html lang="en">
@@ -96,8 +93,8 @@ const PaymentView = (props) => {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="products-info">
-                            Product Info: ${product}
-                            Amount: ${amount}
+                            Your food is soon to be started
+                            
                         </div>
                     </div>
                     <div class="row">
@@ -248,32 +245,28 @@ const PaymentView = (props) => {
             </html>
     `;
 
-    const injectedJavaScript = `(function() {
+  const injectedJavaScript = `(function() {
         window.postMessage = function(data){
             window.ReactNativeWebView.postMessage(data);
         };
     })()`;
 
+  const onMessage = (event) => {
+    const { data } = event.nativeEvent;
+    console.log(data);
+    onCheckStatus(data);
+  };
 
-    const onMessage = (event) => {
-        const { data } =  event.nativeEvent;
-        console.log(data)
-        onCheckStatus(data)
-        
-    }
+  return (
+    <WebView
+      javaScriptEnabled={true}
+      style={{ flex: 1 }}
+      originWhitelist={['*']}
+      source={{ html: htmlContent }}
+      injectedJavaScript={injectedJavaScript}
+      onMessage={onMessage}
+    />
+  );
+};
 
-
-
-return <WebView
-    javaScriptEnabled={true}
-    style={{ flex: 1}}
-    originWhitelist={['*']}
-    source={{ html: htmlContent}}
-    injectedJavaScript={injectedJavaScript}
-    onMessage={onMessage}
-/>
-
-}
- 
-
- export { PaymentView }
+export { PaymentView };

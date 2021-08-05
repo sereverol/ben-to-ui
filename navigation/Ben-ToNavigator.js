@@ -14,7 +14,8 @@ import Establishments from '../screens/Establishments';
 import AddEstablishment from '../screens/AddEstablishment';
 import Products from '../screens/Products';
 import Cart from '../screens/Cart';
-import MapScreen from '../screens/Mapas';
+import { PaymentScreen } from '../screens/Payment';
+
 import Colors from '../constants/Colors';
 
 const BenToNavigator = createStackNavigator(
@@ -49,14 +50,17 @@ const BenToNavigator = createStackNavigator(
     Home: {
       screen: Home,
     },
-    Mapas: {
-      screen: MapScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
+    // Mapas: {
+    //   screen: MapScreen,
+    //   navigationOptions: {
+    //     headerShown: false,
+    //   },
+    // },
     Cart: {
       screen: Cart,
+    },
+    Payment: {
+      screen: PaymentScreen,
     },
   },
   {

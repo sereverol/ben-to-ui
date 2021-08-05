@@ -1,8 +1,8 @@
-import * as React from "react";
-import MapView, { Marker, Callout, Circle } from "react-native-maps";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import * as React from 'react';
+import MapView, { Marker, Callout, Circle } from 'react-native-maps';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
-export default function MapScreen() {
+const Map = () => {
   const [pin, setPin] = React.useState({
     latitude: 10.721794,
     longitude: -71.620774,
@@ -24,7 +24,7 @@ export default function MapScreen() {
           pinColor="red"
           draggable={true}
           onDragStart={(e) => {
-            console.log("Drag Start", e.nativeEvent.coordinates);
+            console.log('Drag Start', e.nativeEvent.coordinates);
           }}
           onDragEnd={(e) => {
             setPin({
@@ -41,17 +41,19 @@ export default function MapScreen() {
       </MapView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   map: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    width: 300,
+    height: 160,
   },
 });
+
+export default Map;

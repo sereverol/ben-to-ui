@@ -93,7 +93,7 @@ const Home = (props) => {
 Home.navigationOptions = (navData) => {
   return {
     headerTitle: 'Home',
-    headerRight: () => (
+    headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="exit"
