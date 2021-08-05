@@ -15,7 +15,7 @@ import AddEstablishment from '../screens/AddEstablishment';
 import Products from '../screens/Products';
 import Cart from '../screens/Cart';
 
-// import { PaymentScreen } from '../screens/Payment';
+ import Payment from '../screens/Payment';
 
 import Payment from '../screens/Payment';
 import Colors from '../constants/Colors';
@@ -60,6 +60,9 @@ const BenToNavigator = createStackNavigator(
     // },
     Cart: {
       screen: Cart,
+    },
+    Payment:{
+      screen:Payment,
     },
   },
   {
